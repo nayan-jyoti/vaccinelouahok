@@ -14,6 +14,7 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
   @Output() toggleComponent = new EventEmitter();
 
   currentTime: string = '';
+  audioAlarmSource: string = '../../../assets/audio/daniel_simon.wav';
 
   dataResponse: any;
   vaxCenters: any[] = [];
@@ -65,7 +66,7 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
 
   playAudio() {
     let audio = new Audio();
-    audio.src = "../../../assets/audio/daniel_simon.wav";
+    audio.src = this.audioAlarmSource;
     audio.load();
     audio.play();
   }
