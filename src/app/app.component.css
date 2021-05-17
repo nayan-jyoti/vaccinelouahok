@@ -1,0 +1,18 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: darkcyan;
+}
+
+.customFooter {
+    font-size: medium;
+    color: azure;
+}
+
+.customNavClass {
+    background-color: darkcyan;
+    font-weight: 600;
+    height: fit-content;
+    padding: 0;
+}

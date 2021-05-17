@@ -1,0 +1,12 @@
+button {
+    margin-left: 10px;
+}
+
+button:disabled {
+    background-color: gray;
+    color: black;
+}
+
+input, select {
+    margin-left: 10px;
+}

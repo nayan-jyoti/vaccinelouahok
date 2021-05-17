@@ -1,0 +1,26 @@
+<div *ngIf="!showDataShowComp">
+    <div class="container-fluid text-center">
+        <div class="form-outline">
+            <div>
+                <label for="inputPin">ডাক-সূচাংক প্ৰৱিষ্ট কৰক:</label>
+                <input type="text" [(ngModel)]="inputPinCode" [placeholder]="textHintPinCode" pattern="[7][8][0-9]{4}$"
+                    #pinCode="ngModel">
+                <button class="btn btn-info" [disabled]="inputPinCode==''|| pinCode.errors?.pattern"
+                    (click)="onPinSubmit()">বাচনি কৰক</button>
+            </div>
+            <div style="font-weight: 800;">বা</div>
+            <div>
+                <label for="inputDistrict">জিলা বাচনি কৰক:</label>
+                <select [(ngModel)]="selectedDistrict">
+                    <option *ngFor="let district of districtData" [ngValue]="district">{{district.name}}</option>
+                </select>
+                <button class="btn btn-info" [disabled]="selectedDistrict.id==0" (click)="onDistSubmit()">বাচনি
+                    কৰক</button>
+            </div>
+            <input type="checkbox" id="ageGroupCheck" (click)="toggleCheckBox()">
+            <label for="ageGroupCheck">কেৱল ১৮+ বয়স গোটৰ বাবে</label>
+        </div>
+    </div>
+</div>
+<app-comp-data-show (toggleComponent)="ngOnInit()" *ngIf="showDataShowComp" [url]="dataFetchUrl"
+    [eighteenPlusAgeGroup]="onlyEighteenPlusAgeGroup"></app-comp-data-show>

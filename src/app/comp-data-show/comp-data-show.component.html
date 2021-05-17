@@ -1,0 +1,42 @@
+<div class="container-fluid text-center">
+    <div class="customDataShow text-center">
+        <div class="table-responsive-sm">
+            <table class="table table-striped">
+                <thead class="bg-success">
+                    <tr>
+                        <th scope="col" style="width: 50%;">কেন্দ্ৰৰ নাম আৰু ঠিকনা</th>
+                        <th scope="col" style="width: 5%;">ডাক</th>
+                        <th scope="col" style="width: 5%;">বয়স গোট</th>
+                        <th scope="col" style="width: 5%;">টীকাৰ নাম</th>
+                        <th scope="col" style="width: 5%;">টীকাৰ সংখ্যা</th>
+                        <th scope="col" style="width: 5%;">টীকাৰ মূল্য</th>
+                        <th scope="col" style="width: 25%;">এই সময়ৰ তথ্য</th>
+                    </tr>
+                </thead>
+                <tbody class="table-success" *ngFor="let center of vaxCenters">
+                    <tr
+                        *ngIf="center.sessions[0].available_capacity>0 && (onlyEighteenPlusAgeGroup && center.sessions[0].min_age_limit==18)">
+                        <td>{{center.name}}, {{center.address}}</td>
+                        <td>{{center.pincode}}</td>
+                        <td>{{center.sessions[0].min_age_limit}}+</td>
+                        <td>{{center.sessions[0].vaccine}}</td>
+                        <td>{{center.sessions[0].available_capacity}}</td>
+                        <td>{{center.fee_type}}</td>
+                        <td>{{currentTime}}</td>
+                    </tr>
+                    <tr *ngIf="center.sessions[0].available_capacity>0 && !onlyEighteenPlusAgeGroup">
+                        <td>{{center.name}}, {{center.address}}</td>
+                        <td>{{center.pincode}}</td>
+                        <td>{{center.sessions[0].min_age_limit}}+</td>
+                        <td>{{center.sessions[0].vaccine}}</td>
+                        <td>{{center.sessions[0].available_capacity}}</td>
+                        <td>{{center.fee_type}}</td>
+                        <td>{{currentTime}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button class="btn btn-info" (click)="goToHome()" style="border-radius: 10px; margin-bottom: 60px;">পুনৰ চেষ্টা
+        কৰক</button>
+</div>
