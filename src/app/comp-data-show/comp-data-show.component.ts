@@ -65,7 +65,7 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
 
   playAudio() {
     let audio = new Audio();
-    audio.src = "/assets/audio/daniel_simon.wav";
+    audio.src = "../../../assets/audio/daniel_simon.wav";
     audio.load();
     audio.play();
   }
