@@ -26,6 +26,7 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
     this.currentTime = new Date().toLocaleDateString() + '  ' + new Date().toLocaleTimeString();
     this.dataFetch();
     this.currInterval = setInterval(() => {
+      this.currentTime = new Date().toLocaleDateString() + '  ' + new Date().toLocaleTimeString();
       this.dataFetch()
     }, 10000);
   }
@@ -64,7 +65,7 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
 
   playAudio() {
     let audio = new Audio();
-    audio.src = "../../../assets/audio/daniel_simon.wav";
+    audio.src = "/assets/audio/daniel_simon.wav";
     audio.load();
     audio.play();
   }
