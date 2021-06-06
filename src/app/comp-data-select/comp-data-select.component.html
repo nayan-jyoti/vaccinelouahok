@@ -4,7 +4,7 @@
             <div>
                 <label for="inputPin">ডাক-সূচাংক প্ৰৱিষ্ট কৰক:</label>
                 <input type="text" [(ngModel)]="inputPinCode" [placeholder]="textHintPinCode" pattern="[7][8][0-9]{4}$"
-                    #pinCode="ngModel">
+                    #pinCode="ngModel" maxlength="6">
                 <button class="btn btn-info" [disabled]="inputPinCode==''|| pinCode.errors?.pattern"
                     (click)="onPinSubmit()">বাচনি কৰক</button>
             </div>

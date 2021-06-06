@@ -13,7 +13,8 @@ export class CompDataSelectComponent implements OnInit {
   textHintPinCode: string = 'ডাক-সূচাংক';
   selectedDistrict: DataDistrict = new DataDistrict();
   todayDate: string = '';
-  dataFetchBaseUrl: string = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions';
+  dataFetchBaseUrl: string = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public';
+  //dataFetchBaseUrl: string = 'http://localhost:9000';
   dataFetchUrl: string = '';
 
   showDataShowComp: boolean = false;

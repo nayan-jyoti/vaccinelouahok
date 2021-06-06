@@ -1,5 +1,10 @@
 <div class="container-fluid text-center">
+    <div *ngIf="vaxFound">
+        <p> অফিচিয়েল ৱেৱচাইটত গৈ বুক কৰিবলৈ <a [href]="cowinLink" target="_blank"
+                rel="noopener noreferer">ইয়াত</a> ক্লিক কৰক</p>
+    </div>
     <div class="customDataShow text-center">
+
         <div class="table-responsive-sm">
             <table class="table table-striped">
                 <thead class="bg-success">
@@ -14,8 +19,8 @@
                     </tr>
                 </thead>
                 <tbody class="table-success" *ngFor="let center of vaxCenters">
-                    <tr
-                        *ngIf="center.sessions[0].available_capacity>0 && (onlyEighteenPlusAgeGroup && center.sessions[0].min_age_limit==18)">
+                    <tr *ngIf="center.sessions[0].available_capacity>0 && 
+                            (onlyEighteenPlusAgeGroup && center.sessions[0].min_age_limit==18)">
                         <td>{{center.name}}, {{center.address}}</td>
                         <td>{{center.pincode}}</td>
                         <td>{{center.sessions[0].min_age_limit}}+</td>

@@ -15,15 +15,20 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
 
   currentTime: string = '';
   audioAlarmSource: string = '../../../assets/audio/daniel_simon.wav';
+  unauthorizedAccessHttp: number = 401;
+  cowinLink: string = 'https://www.cowin.gov.in';
 
   dataResponse: any;
   vaxCenters: any[] = [];
   currInterval: any;
-  currIntervalAlarm: any;
+
+  calenderByApi: boolean = true;
+  vaxFound: boolean = false;
 
   constructor(private httpModule: HttpClient) { }
 
   ngOnInit(): void {
+    this.calenderByApi = true;
     this.currentTime = new Date().toLocaleDateString() + '  ' + new Date().toLocaleTimeString();
     this.dataFetch();
     this.currInterval = setInterval(() => {
@@ -34,7 +39,6 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.currInterval);
-    clearInterval(this.currIntervalAlarm);
   }
 
   goToHome() {
@@ -43,24 +47,41 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
 
   dataFetch() {
     if (this.urlForDataFetch != undefined) {
-      this.httpModule.get(this.urlForDataFetch).subscribe((res) => {
-        this.dataResponse = res;
-        this.vaxCenters = this.dataResponse.centers;
-        if (this.vaxCenters != null) {
-          for (var i = 0; i < this.vaxCenters.length; i++) {
-            if (this.vaxCenters[i].sessions[0].available_capacity > 0) {
-              if (this.onlyEighteenPlusAgeGroup && this.vaxCenters[i].sessions[0].min_age_limit == 18) {
-                this.playAudio();
-                break;
-              }
-              else if (!this.onlyEighteenPlusAgeGroup) {
-                this.playAudio();
-                break;
+      this.httpModule.get(this.urlForDataFetch).subscribe(
+        (res) => {
+          this.dataResponse = res;
+          this.vaxCenters = this.dataResponse.centers;
+          if (this.vaxCenters != null) {
+            for (var i = 0; i < this.vaxCenters.length; i++) {
+              if (this.vaxCenters[i].sessions[0].available_capacity > 0) {
+                if (this.onlyEighteenPlusAgeGroup && this.vaxCenters[i].sessions[0].min_age_limit == 18) {
+                  this.playAudio();
+                  this.vaxFound = true;
+                  break;
+                }
+                else if (!this.onlyEighteenPlusAgeGroup) {
+                  this.playAudio();
+                  this.vaxFound = true;
+                  break;
+                }
               }
             }
           }
-        }
-      })
+        },
+        (error) => {
+          if (error.status == this.unauthorizedAccessHttp) {
+            if (this.calenderByApi) {
+              this.urlForDataFetch = this.urlForDataFetch?.replace("calendar", "find");
+              this.calenderByApi = !this.calenderByApi;
+            }
+            else {
+              this.urlForDataFetch = this.urlForDataFetch?.replace("find", "calendar");
+              this.calenderByApi = !this.calenderByApi;
+            }
+
+          }
+
+        })
     }
   }
 
@@ -70,4 +91,5 @@ export class CompDataShowComponent implements OnInit, OnDestroy {
     audio.load();
     audio.play();
   }
+
 }
